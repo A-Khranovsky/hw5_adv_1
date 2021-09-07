@@ -32,12 +32,12 @@ class Money
         return $this->currency;
     }
 
-    public function equals(Money &$moneyValue): bool
+    public function equals(Money $moneyValue): bool
     {
-        retrun (
-          $this->amount === $moneyValue->amount
-          &&
-          $this->currency->equals($moneyValue)
+        return (
+            $this->amount === $moneyValue->amount
+            &&
+            $this->currency->equals($moneyValue->getCurrency())
         );
     }
 }

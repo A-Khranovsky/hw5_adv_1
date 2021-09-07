@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once('Money.php');
 
 class Currency
 {
@@ -25,7 +26,7 @@ class Currency
          return $this->isoCode;
      }
 
-     private function validate(string &$value):bool
+     private function validate(string $value):bool
      {
          $existingIsoCodes = ['AFN','ALL','DZD','USD','EUR','AOA','XCD','XCD','ARS','AMD','AWG',
              'SHP','AUD','AZN','BSD','BHD','BDT','BBD','BYN','BZD','XOF','BMD','BTN','BOB','BAM',
@@ -46,14 +47,13 @@ class Currency
          return in_array($value, $existingIsoCodes, true);
      }
 
-     public function equals(Currency &$value): bool
+     public function equals(Currency $value): bool
      {
          return !(strcmp($this->isoCode, $value->getIsoCode()));
      }
 }
 
-$a = new Currency('USD');
-$b = new Currency('EUR');
-var_dump($a->equals($b));
-//echo $a->getIsoCode();
 
+$money1 = new Money(100, new Currency('USD'));
+$money2 = new Money(200, new Currency('USD'));
+var_dump($money1->equals($money2));
