@@ -40,4 +40,15 @@ class Money
             $this->currency->equals($moneyValue->getCurrency())
         );
     }
+
+    public function add(Money $moneyValue): int|Money
+    {
+        if ($this->currency->equals($moneyValue->getCurrency())) {
+            return new Money($this->amount + $moneyValue->amount, new Currency($this->currency->getIsoCode()));
+        }
+        else {
+            return -1;
+        }
+
+    }
 }
