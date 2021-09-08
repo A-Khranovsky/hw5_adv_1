@@ -54,15 +54,15 @@ class Currency
 }
 
 
-$money1 = new Money(100, new Currency('USD'));
-$money2 = new Money(200, new Currency('EUR'));
-var_dump($money1->equals($money2));
-
-$money3 = $money1->add($money2);
-if(is_int($money3)) {
-    exit('Error of adding different currency');
-}
-else {
-    echo $money3->getAmount();
-}
+//$money1 = new Money(100, new Currency('USD'));
+//$money2 = new Money(200, new Currency('EUR'));
+//var_dump($money1->equals($money2));
+//
+//$money3 = $money1->add($money2);
+//if(is_int($money3)) {
+//    exit('Error of adding different currency');
+//}
+//else {
+//    echo $money3->getAmount();
+//}
 
