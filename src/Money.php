@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App;
 
 class Money
@@ -7,14 +9,17 @@ class Money
     private int|float $amount;
     private Currency $currency;
 
-    function __construct(int|float $amountValue, Currency $currencyValue)
+    public function __construct(int|float $amountValue, Currency $currencyValue)
     {
         $this->setAmount($amountValue);
         $this->setCurrency($currencyValue);
     }
 
-    private function setAmount(int|float $amountValue):void
+    private function setAmount(int|float $amountValue): void
     {
+        if ($amountValue <= 0) {
+            exit('Amount error');
+        }
         $this->amount = $amountValue;
     }
 
@@ -36,20 +41,17 @@ class Money
     public function equals(Money $moneyValue): bool
     {
         return (
-            $this->amount === $moneyValue->amount
+            $this->getAmount() === $moneyValue->amount
             &&
-            $this->currency->equals($moneyValue->getCurrency())
+            $this->getCurrency()->getIsoCode() === $moneyValue->getCurrency()->getIsoCode()
         );
     }
 
-    public function add(Money $moneyValue): int|Money
+    public function add(Money $moneyValue): Money
     {
-        if ($this->currency->equals($moneyValue->getCurrency())) {
-            return new Money($this->amount + $moneyValue->amount, new Currency($this->currency->getIsoCode()));
+        if ($this->getCurrency()->getIsoCode() !== $moneyValue->getCurrency()->getIsoCode()) {
+            exit('ISO Currency error');
         }
-        else {
-            return -1;
-        }
-
+        return new self($this->getAmount() + $moneyValue->getAmount(), $this->getCurrency());
     }
 }
